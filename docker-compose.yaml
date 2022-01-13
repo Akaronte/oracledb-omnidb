@@ -1,0 +1,32 @@
+version: "3.8"
+services:
+  oracle:
+    container_name: oracledb
+    image: container-registry.oracle.com/database/enterprise:19.3.0.0
+    restart: always
+    ports:
+      - '1521:1521'
+      - '5500:5500'
+    environment:
+      SVC_HOST: db19c-oracle-db
+      SVC_PORT: '1521'
+      ORACLE_SID: ORCLCDB
+      ORACLE_PDB: ORCLPDB1
+      ORACLE_PWD: oracle123
+      ORACLE_CHARACTERSET: AL32UTF8
+      ORACLE_EDITION: enterprise
+      ENABLE_ARCHIVELOG: 'false'
+    volumes:
+      - ./oracledb_data:/opt/oracle/oradata
+  omnidb:
+    container_name: omnidb
+    image: akaronte/omnidb
+    privileged: true
+    user: root
+    volumes:
+    - ./omnidb_data:/etc/omnidb
+    environment:
+    - TZ=Europe/Madrid
+    ports: 
+      - "25482:25482" 
+      - "8080:8080" 
