@@ -8,24 +8,24 @@ password=oracle123
 
 
 enter in conitainer oracledb
-
+docker exec -ti oracledb bash
 
 mkdir -p /opt/oracle/oradata/ORCLCDB/springdb
 
 
 sqlplus / as sysdba
 
-alter pluggable database springdb OPEN;
-
 CREATE PLUGGABLE DATABASE springdb ADMIN USER springadmin IDENTIFIED BY spring123 FILE_NAME_CONVERT = ('/opt/oracle/oradata/ORCLCDB/pdbseed','/opt/oracle/oradata/ORCLCDB/springdb');
 
-alter pluggable database springdb OPEN;
+
 
 
 ALTER SESSION SET CONTAINER = springdb;
+
+alter pluggable database springdb OPEN;
 alter database open;
 
-GRANT CONNECT, RESOURCE, DBA to springuser;
+GRANT CONNECT, RESOURCE, DBA to springadmin;
 
 
 
